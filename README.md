@@ -25,10 +25,14 @@ Alarmablauf:
 ![Alarmablauf](https://github.com/MrWeezle/AlarmApp/blob/master/src/libs/alarmablauf.jpg)
 
 Alarmtext 1:
+Das "#"-Zeichen ist als Trennzeichen zwischen den Parameternamen angegeben. Die Parameternamen sind nur für die bessere
+Lesbarkeit. Auswirkungen auf den Programmablauf haben diese nicht.
 
 ![Alarmtext](https://github.com/MrWeezle/AlarmApp/blob/master/src/libs/alarmtext1.jpg)
 
 Textersetzung:
+Beachte: Leerzeichen müssen mit einem "?" ersetzt werden, da ein Leerzeichen den Beginn eines neuen Parameters anzeigt.
+Die Reihenfolge der Parameter ist an sich unwichtig. Die Reihenfolge bestimmt nur die Darstellung am Client.
 
 ![Textersetzung](https://github.com/MrWeezle/AlarmApp/blob/master/src/libs/textersetzung.jpg)
 
@@ -40,14 +44,6 @@ Programm ausführen:
 
 ![Programm ausführen](https://github.com/MrWeezle/AlarmApp/blob/master/src/libs/programmausf%C3%BChren.jpg)
 
-
-Beachte: Leerzeichen müssen mit einem "?" ersetzt werden, da ein Leerzeichen den Beginn eines neuen Parameters anzeigt.
-Die Reihenfolge der Parameter ist an sich unwichtig. Die Reihenfolge bestimmt nur die Darstellung am Client.
-
-Das "#"-Zeichen ist als Trennzeichen zwischen den Parameternamen angegeben. Die Parameternamen sind nur für die bessere
-Lesbarkeit. Auswirkungen auf den Programmablauf haben diese nicht.
-
-Im Plugin "Programm ausführen" wird der Pfad zur Client JAR-Datei angegeben. Den Downloadlink zu den JARs gibt es weiter unten.
 
 ##Einrichtung Server und Client
 

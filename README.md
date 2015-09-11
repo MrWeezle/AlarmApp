@@ -24,6 +24,9 @@ Beispiel Alarmablauf:
 Beispiel Alarmtext:
 
 	-stichw#&STICHW& -adresse#&ZIEL& -datum#&D& -zeit#&U&
+	
+Benötigte Textersetzung:
+	" ;?"
 
 Beachte: Leerzeichen müssen mit einem "?" ersetzt werden, da ein Leerzeichen den Beginn eines neuen Parameters anzeigt.
 Die Reihenfolge der Parameter ist an sich unwichtig. Die Reihenfolge bestimmt nur die Darstellung am Client.

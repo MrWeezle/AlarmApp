@@ -26,6 +26,7 @@ Beispiel Alarmtext:
 	-stichw#&STICHW& -adresse#&ZIEL& -datum#&D& -zeit#&U&
 	
 Benötigte Textersetzung:
+
 	[LEERZEICHEN];?
 
 Beachte: Leerzeichen müssen mit einem "?" ersetzt werden, da ein Leerzeichen den Beginn eines neuen Parameters anzeigt.

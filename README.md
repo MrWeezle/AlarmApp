@@ -16,11 +16,11 @@ welche übergeben werden sollen.
 
 Beispiel Alarmablauf:
 
-Alarmtext [eigene Parameter]
+	Alarmtext [eigene Parameter]
 	
-	Textersetzung
+		Textersetzung
 		
-		Programm ausführen
+			Programm ausführen
 
 
 Beispiel Parameter:

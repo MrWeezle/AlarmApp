@@ -45,5 +45,19 @@ Die Datei "AlarmAppServer.jar" wird auf dem Rechner eingerichtet, auf dem firEme
 
 Die Datei "AlarmAppClient.jar" wird auf dem Rechner eingerichtet, welcher bei einem Alarm eine Benachrichtigung und einen Alarmton abspielen soll. Zusätzlich muss die Datei "ServerClient.properties" im gleichen Verzeichnis wie die JAR-Datei sein. Alarmtöne können in einem beliebigen Verzeichnis sein, empfohlen ist jedoch das gleiche Verzeichnis wie die JAR-Datei.
 
+#####ServerClient.properties
+
+In dieser Datei können mehrere Parameter festgelegt werden.
+
+**receiverPort** --> Der Port auf welchem Server und der Client miteinander kommunizieren. Diese Zahl muss ein Wert zwischen 1024 und 65535 sein und sowohl beim Server als auch beim Client in der Properties-Datei gleich sein.
+
+**receiverName** --> Dies ist der Hostname des Clients. Dieser Parameter wird vom Server verwendet, um den Alarm zu verschicken.
+
+**alarmTone** --> Hier kann eine Audio-Datei angegeben werden, die im Alarmfall angespielt werden soll. Standardmäßig d bereits zwei Dateien beim Download dabei. "Akkord.m4a" und "hurricane.m4a".
+
+**alarmCycle** --> Hier kann angegeben werden, wie oft der Alarmton abgespielt werden soll.
+
+**notification** --> Hier kann angegeben werden, wie lange das Notification-popup angezeigt werden soll.
+
 
 

@@ -25,7 +25,7 @@ Das Programm ist in Java geschrieben. Folglich muss auf dem Empfänger und dem S
 
 #####Server sendet Nachricht
 
-![Alarmablauf](https://github.com/MrWeezle/AlarmApp/blob/master/src/libs/alarmablauf.jpg)
+![Server sendet](https://github.com/MrWeezle/AlarmApp/blob/master/src/libs/serversendet.jpg)
 
 #####Server hat einen Fehler
 

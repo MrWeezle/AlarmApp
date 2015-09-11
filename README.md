@@ -12,13 +12,16 @@ Hierzu wird in firEmergency in den gewünschten Alarmablauf ein Plugin "Alarmtex
 und das Plugin "Programm ausführen" wird diesem untergeordnet. Im Alarmtext-Plugin werden die Parameter definiert,
 welche übergeben werden sollen.
 
-#####WEmpfohlener Alarmablauf:
+#####Empfohlener Alarmablauf:
 
 	Alarmtext [eigene Parameter]
 	|----	Textersetzung
 		|----   Alarmtext [eigene Parameter]
 			|----	Programm ausführen
 
+
+#####Screenshots zu Einstellungen
+![Alarmablauf](https://github.com/MrWeezle/AlarmApp/blob/master/src/libs/alarmablauf.jpg)
 
 Beachte: Leerzeichen müssen mit einem "?" ersetzt werden, da ein Leerzeichen den Beginn eines neuen Parameters anzeigt.
 Die Reihenfolge der Parameter ist an sich unwichtig. Die Reihenfolge bestimmt nur die Darstellung am Client.

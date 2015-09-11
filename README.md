@@ -5,6 +5,32 @@ um auf einem Schulungsrechner eine Meldung und einen Alarmton abzuspielen, wenn 
 
 Das Programm ist in Java geschrieben. Folglich muss auf dem Empfänger und dem Sender Java installiert sein.
 
+###Demo-Screenshots
+
+#####Client bereit für Empfang
+
+
+
+#####Client empfängt Alarm
+
+
+
+#####Client hat einen Fehler
+
+
+
+#####Alarmdarstellung
+
+
+
+#####Server sendet Nachricht
+
+
+
+#####Server hat einen Fehler
+
+
+
 
 ##Einrichtung firEmergency
 

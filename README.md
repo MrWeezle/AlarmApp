@@ -18,7 +18,7 @@ Beispiel Alarmablauf:
 
 Alarmtext [eigene Parameter]
 |-- Textersetzung
-    |--Programm ausführen
+|--Programm ausführen
 
 
 Beispiel Parameter:

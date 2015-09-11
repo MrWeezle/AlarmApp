@@ -1,4 +1,4 @@
-##EINLEITUNG
+##Einleitung
 
 Dies ist ein Projekt, um einen PC zu alarmieren, wenn über firEmergency ein Alarm eingeht. Wir verwenden es dazu,
 um auf einem Schulungsrechner eine Meldung und einen Alarmton abzuspielen, wenn ein Einsatz eingeht.
@@ -32,6 +32,18 @@ Die Reihenfolge der Parameter ist an sich unwichtig. Die Reihenfolge bestimmt nu
 
 Das "#"-Zeichen ist als Trennzeichen zwischen den Parameternamen angegeben. Die Parameternamen sind nur für die bessere
 Lesbarkeit. Auswirkungen auf den Programmablauf haben diese nicht.
+
+Im Plugin "Programm ausführen" wird der Pfad zur Client JAR-Datei angegeben. Den Downloadlink zu den JARs gibt es weiter unten.
+
+##Einrichtung Server und Client
+
+#####Server
+
+Die Datei "AlarmAppServer.jar" wird auf dem Rechner eingerichtet, auf dem firEmergency läuft. Zusätzlich muss die Datei "ServerClient.properties" im gleichen Verzeichnis wie die JAR-Datei sein.
+
+#####Client
+
+Die Datei "AlarmAppClient.jar" wird auf dem Rechner eingerichtet, welcher bei einem Alarm eine Benachrichtigung und einen Alarmton abspielen soll. Zusätzlich muss die Datei "ServerClient.properties" im gleichen Verzeichnis wie die JAR-Datei sein. Alarmtöne können in einem beliebigen Verzeichnis sein, empfohlen ist jedoch das gleiche Verzeichnis wie die JAR-Datei.
 
 
 

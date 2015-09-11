@@ -27,8 +27,7 @@ welche übergeben werden sollen.
 
 ######Alarmtext 1:
 
-Das "#"-Zeichen ist als Trennzeichen zwischen den Parameternamen angegeben. Die Parameternamen sind nur für die bessere
-Lesbarkeit. Auswirkungen auf den Programmablauf haben diese nicht.
+Das "#"-Zeichen ist als Trennzeichen zwischen dem Parameternamen und dem Übergabewert angegeben. Die Parameternamen sind nur für die bessere Lesbarkeit. Auswirkungen auf den Programmablauf haben diese nicht. Jeder neue Parameter wird in der Notifikation in einer neuen Zeile dargestellt.
 
 ![Alarmtext](https://github.com/MrWeezle/AlarmApp/blob/master/src/libs/alarmtext1.jpg)
 

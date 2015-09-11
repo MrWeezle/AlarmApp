@@ -82,8 +82,14 @@ public class AlarmHandler extends WebFrame
 	    if (alarm) {
 	    	try {
 	    		//Wenn ja, wird ein Ton abgespielt
-	        	System.out.println("Getting Alarmmedia...");        
-			    Media med = new Media(new File(ServerClientProp.getProperty("alarmTone")).toURI().toString());
+	        	System.out.println("Getting Alarmmedia...");
+	        	File f = new File(ServerClientProp.getProperty("alarmTone"));
+	        	System.out.println(f);
+	        	String uri = f.toURI().toString();
+	        	System.out.println(uri);
+	        	//System.out.println(new File(ServerClientProp.getProperty("alarmTone")).toURI().toString());
+			    //Media med = new Media(new File(ServerClientProp.getProperty("alarmTone")).toURI().toString());
+	        	Media med = new Media(uri);
 			    MediaPlayer player = new MediaPlayer(med);
 			    System.out.println("Playing Alarmmedia...");
 			    player.setCycleCount(Integer.parseInt(ServerClientProp.getProperty("alarmCycle")));
@@ -92,9 +98,9 @@ public class AlarmHandler extends WebFrame
 			//FEHLERBEHANDLUNG
 	    	} catch (MediaException e) {
 	    		//Audio-Datei fehlt
-	    		if (e.getType().equals("MEDIA_UNAVAILABLE")) {
+//	    		if (e.getType().equals("MEDIA_UNAVAILABLE")) {
 	    			new AlarmHandler("<html><body><font size=5>FEHLER</font><br>Media-Datei wurde nicht gefunden.<br>Bitte überprüfen!</body></html>", false, 5, NotificationIcon.error);
-	    		}
+//	    		}
 	    	}
         }
 	}

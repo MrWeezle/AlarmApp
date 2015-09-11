@@ -69,11 +69,16 @@ public class AlarmAppClient extends Thread{
                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 
                 //definiere Alarmtext mit Schriftgröße 6
-                String inputLine,alarmtext = "<html><body><font size=6>";
+                String inputLine,alarmtext = "<html><body><font size=7>";
             	
                 //Hole einzelne Zeilen von Server und trenne diese mit einem Zeilenumbruch
+                int i = 0;
                 while ((inputLine = in.readLine()) != null) {
-                	alarmtext = alarmtext + inputLine+"<br>";
+                	if (i==0) {
+                		alarmtext = alarmtext + "<b><font size=9>"+inputLine+"</font></b><br>";
+                		i=1;
+                	} else
+                		alarmtext = alarmtext + inputLine+"<br>";
                 }
                 
                 //Schließe HTML-Tags

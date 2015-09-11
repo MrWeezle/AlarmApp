@@ -1,6 +1,6 @@
 package de.feuerwehr_inningen.alarmappWindows.Server;
 
-import de.feuerwehr_inningen.alarmappWindows.Client.*;
+import de.feuerwehr_inningen.alarmappWindows.Client.AlarmHandler;
 import java.io.*;
 import java.net.*;
 import java.util.Properties;

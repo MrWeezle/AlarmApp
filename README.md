@@ -93,7 +93,7 @@ In dieser Datei können mehrere Parameter festgelegt werden.
 
 **receiverName** --> Dies ist der Hostname des Clients. Dieser Parameter wird vom Server verwendet, um den Alarm zu verschicken.
 
-**alarmTone** --> Hier kann eine Audio-Datei angegeben werden, die im Alarmfall angespielt werden soll. Standardmäßig d bereits zwei Dateien beim Download dabei. "Akkord.m4a" und "hurricane.m4a".
+**alarmTone** --> Hier kann eine Audio-Datei angegeben werden, die im Alarmfall angespielt werden soll. Standardmäßig sind bereits zwei Dateien beim Download dabei. "Akkord.m4a" und "hurricane.m4a".
 
 **alarmCycle** --> Hier kann angegeben werden, wie oft der Alarmton abgespielt werden soll.
 

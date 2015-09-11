@@ -21,9 +21,9 @@ Beispiel Alarmablauf:
 		|----	Programm ausführen
 
 
-Beispiel Parameter:
+Beispiel Alarmtext:
 
--stichw#B3?Person -adresse#Berliner?Allee?30,?Augsburg -datum#11.09.2015 -zeit#11:15:00
+	-stichw#&STICHW& -adresse#&ZIEL& -datum#&D& -zeit#&U&
 
 Beachte: Leerzeichen müssen mit einem "?" ersetzt werden, da ein Leerzeichen den Beginn eines neuen Parameters anzeigt.
 Die Reihenfolge der Parameter ist an sich unwichtig. Die Reihenfolge bestimmt nur die Darstellung am Client.

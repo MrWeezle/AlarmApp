@@ -28,7 +28,7 @@ public class AlarmHandler extends WebFrame
 	private static final long serialVersionUID = 8025922137450027854L;
 	public static Properties ServerClientProp = new Properties();
 
-	public AlarmHandler(String alarmtext) {
+	public AlarmHandler(String alarmtext, boolean alarm, int displaytime, NotificationIcon icon) {
 
 		super();
 		
@@ -38,37 +38,40 @@ public class AlarmHandler extends WebFrame
 			ServerClientProp.load(is);
 			is.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			new AlarmHandler("<html><body><font size=5>FEHLER</font><br>Properties-Datei hat einen Fehler oder ist nicht vorhanden!<br>Programm wird beendet</body></html>", false, 5, NotificationIcon.error);
+			try {
+				Thread.sleep(6000);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+			System.exit(1);
 		}
 		
         // Install WebLaF as application L&F
         WebLookAndFeel.install ();        
         new JFXPanel();
-        // Create you Swing application here
-        
-        int notifDuration = Integer.parseInt(ServerClientProp.getProperty("notification"));
-        
+               
         final WebNotification notificationPopup = new WebNotification ();
-        notificationPopup.setIcon ( NotificationIcon.clock );
-        notificationPopup.setDisplayTime (notifDuration * 1000);
-
-//        final WebClock clock = new WebClock ();
-//        clock.setClockType ( ClockType.timer );
-//        clock.setTimeLeft ( notifDuration * 1000 + 1000 );
-//        clock.setTimePattern ( "'This notification will close in' ss 'seconds'" );
-//        clock.setTimePattern("'"+alarmtext+"'");
+        notificationPopup.setIcon ( icon );
+        notificationPopup.setDisplayTime (displaytime*1000);
         notificationPopup.setContent ( new WebLabel( alarmtext ) );
-
-        NotificationManager.showNotification ( notificationPopup );
-//        clock.start ();
         
-        System.out.println("Getting Alarmmedia...");
-        Media med = new Media(new File(ServerClientProp.getProperty("alarmTone")).toURI().toString());
-//        Media med = new Media(getClass().getResource(ServerClientProp.getProperty("alarmTone")).toExternalForm());
-        MediaPlayer player = new MediaPlayer(med);
-        System.out.println("Playing Alarmmedia...");
-        player.setCycleCount(Integer.parseInt(ServerClientProp.getProperty("alarmCycle")));
-        player.play();
-        System.out.println("Alarm displayed. Waiting for new Alarm...");
+        NotificationManager.showNotification ( notificationPopup );
+        
+	    if (alarm) {
+	    	try {
+	        	System.out.println("Getting Alarmmedia...");        
+			    Media med = new Media(new File(ServerClientProp.getProperty("alarmTone")).toURI().toString());
+			    MediaPlayer player = new MediaPlayer(med);
+			    System.out.println("Playing Alarmmedia...");
+			    player.setCycleCount(Integer.parseInt(ServerClientProp.getProperty("alarmCycle")));
+			    player.play();
+			    System.out.println("Alarm displayed. Waiting for new Alarm...");
+	    	} catch (MediaException e) {
+	    		if (e.getType().equals("MEDIA_UNAVAILABLE")) {
+	    			new AlarmHandler("<html><body><font size=5>FEHLER</font><br>Media-Datei wurde nicht gefunden.<br>Bitte überprüfen!</body></html>", false, 5, NotificationIcon.error);
+	    		}
+	    	}
+        }
 	}
 }

@@ -1,8 +1,12 @@
 package de.feuerwehr_inningen.alarmappWindows.Server;
 
+import de.feuerwehr_inningen.alarmappWindows.Client.*;
+
 import java.io.*;
 import java.net.*;
 import java.util.Properties;
+
+import com.alee.managers.notification.NotificationIcon;
  
 public class AlarmAppServer {
 	
@@ -15,28 +19,31 @@ public class AlarmAppServer {
 //                "Usage: java EchoClient <host name> <port number>");
 //            System.exit(1);
 //        }
-    	try {
-    		if (args[0].equals("debug")) {
-    			args = new String [4];    	
+//    	try {
+//    		if (args[0].equals("debug")) {
+    			args = new String [3];    	
     	    	args[0] = "-stichw#Brand?B3";
     	    	args[1] = "-adresse#Oktavianstraﬂe?29a,?Inningen?Augsburg";
-    	    	args[2] = "-datum#10.09.2015";
-    	    	args[3] = "-zeit#13:09:15";
-    		}
-    	} catch (ArrayIndexOutOfBoundsException e) {
-    		    		
-    	}
+    	    	args[2] = "-datum#10.09.2015?13:09:15";
+//    	    	args[3] = "-zeit#13:09:15";
+//    		}
+//    	} catch (ArrayIndexOutOfBoundsException e) {
+//    		    		
+//    	}
     	
     	FileInputStream is = null;
 		try {
-			// is =
-			// ClassLoader.getSystemResourceAsStream("Resource/ServerPath.properties");
-			is = new FileInputStream(System.getProperty("user.dir")
-					+ "/ServerClient.properties");
+			is = new FileInputStream(System.getProperty("user.dir") + "/ServerClient.properties");
 			ServerClientProp.load(is);
 			is.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			new AlarmHandler("<html><body><font size=5>FEHLER</font><br>Properties-Datei hat einen Fehler order ist nicht vorhanden!<br>Programm wird beendet</body></html>", false, 5, NotificationIcon.error);
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+			System.exit(1);
 		} 
     	
     	
@@ -49,10 +56,6 @@ public class AlarmAppServer {
             BufferedReader in = new BufferedReader(
                 new InputStreamReader(kkSocket.getInputStream()));
         ) {
-//            BufferedReader stdIn =
-//                new BufferedReader(new InputStreamReader(System.in));
-//            String fromServer;
-//            String fromUser;
         	
         	String alarmtext = "";
             for (int i=0;i<args.length;i++) {
@@ -61,27 +64,31 @@ public class AlarmAppServer {
             	String param2[] = param.split("#");
             	alarmtext = alarmtext + param2[1]+"\n";
             }
+            
             System.out.println("Client: "+alarmtext);
             System.out.println("Sending Alarmtext...");
+            new AlarmHandler("<html><body>Sende Alarmtext an Client '" + hostName+"'</body></html>", false, 5, NotificationIcon.information);
  
-//            while ((fromServer = in.readLine()) != null) {
-//                System.out.println("Server: " + fromServer);
-//                if (fromServer.equals("Bye."))
-//                    break;
-//                 
-//                fromUser = stdIn.readLine();
-//                if (fromUser != null) {
-//                    System.out.println("Client: " + fromUser);
             out.println(alarmtext);
-//                }
-//            }
+
         } catch (UnknownHostException e) {
-            System.err.println("Don't know about host " + hostName);
+        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br>Host nicht gefunden. Hostname: " + hostName+"<br>Programm wird beendet</body></html>", false, 5, NotificationIcon.error);
+            try {
+				Thread.sleep(6000);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
             System.exit(1);
         } catch (IOException e) {
-            System.err.println("Couldn't get I/O for the connection to " +
-                hostName);
-            System.exit(1);
+        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br>Konnte keine Verbindung zu '" + hostName+"' aufbauen.<br>Ist der Client gestartet?<br>Programm wird beendet</body></html>", false, 5, NotificationIcon.error);
+        	try {
+				Thread.sleep(6000);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         }
+        System.exit(1);
     }
 }

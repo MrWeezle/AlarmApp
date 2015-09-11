@@ -12,24 +12,12 @@ Hierzu wird in firEmergency in den gewünschten Alarmablauf ein Plugin "Alarmtex
 und das Plugin "Programm ausführen" wird diesem untergeordnet. Im Alarmtext-Plugin werden die Parameter definiert,
 welche übergeben werden sollen.
 
-#####Beispiel Alarmablauf:
+#####WEmpfohlener Alarmablauf:
 
 	Alarmtext [eigene Parameter]
-		#####Beispiel Alarmtext:
-		-stichw#&STICHW& -adresse#&ZIEL& -datum#&D& -zeit#&U&
-		
 	|----	Textersetzung
-		#####Benötigte Textersetzung:
-		[LEERZEICHEN];?
-		
 		|----   Alarmtext [eigene Parameter]
-			#####Benötigte Angabe zum ausführen
-			/C java -jar "C:\Program Files (x86)\Alamos UG\firEmergency\AlarmAppServer.jar" &1&
-			&1& wird mit dem Input-Parameter "pluginmessage" belegt
-			
 			|----	Programm ausführen
-				#####Pfadangabe
-				C:\Windows\System32\cmd.exe
 
 
 Beachte: Leerzeichen müssen mit einem "?" ersetzt werden, da ein Leerzeichen den Beginn eines neuen Parameters anzeigt.

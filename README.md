@@ -41,6 +41,8 @@ Die Reihenfolge der Parameter ist an sich unwichtig. Die Reihenfolge bestimmt nu
 
 ######Alarmtext2:
 
+Hier werden die Argumente zum ausführen des Programms zusammengesetzt. Da firEmergency nur .exe-Dateien starten kann muss hier der Umweg über die Kommandozeile gemacht werden. Die Pfadabgane (hier mit firEmergency) kann natürlich nach Belieben angepasst werden.
+
 ![Alarmtext2](https://github.com/MrWeezle/AlarmApp/blob/master/src/libs/alarmtext2.jpg)
 
 ######Programm ausführen:
@@ -52,7 +54,7 @@ Die Reihenfolge der Parameter ist an sich unwichtig. Die Reihenfolge bestimmt nu
 
 #####Server
 
-Die Datei "AlarmAppServer.jar" wird auf dem Rechner eingerichtet, auf dem firEmergency läuft. Zusätzlich muss die Datei "ServerClient.properties" im gleichen Verzeichnis wie die JAR-Datei sein.
+Die Datei "AlarmAppServer.jar" wird auf dem Rechner eingerichtet, auf dem firEmergency läuft. Zusätzlich muss die Datei "ServerClient.properties" im gleichen Verzeichnis wie die JAR-Datei sein. Empfohlenes Verzeichnis ist das firEmergency-Verzeichnis (kann natürlich geändert werden).
 
 #####Client
 

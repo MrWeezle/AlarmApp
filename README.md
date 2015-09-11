@@ -20,6 +20,7 @@ Alarmtext [eigene Parameter]
 |-- Textersetzung
     |--Programm ausführen
 
+
 Beispiel Parameter:
 
 -stichw#B3?Person -adresse#Berliner?Allee?30,?Augsburg -datum#11.09.2015 -zeit#11:15:00

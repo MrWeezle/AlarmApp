@@ -9,27 +9,27 @@ Das Programm ist in Java geschrieben. Folglich muss auf dem Empfänger und dem S
 
 #####Client bereit für Empfang
 
-
+![Client bereit](https://github.com/MrWeezle/AlarmApp/blob/master/src/libs/clientbereit.jpg)
 
 #####Client empfängt Alarm
 
-
+![client empfängt](https://github.com/MrWeezle/AlarmApp/blob/master/src/libs/clientempfang.jpg)
 
 #####Client hat einen Fehler
 
-
+![Client Fehler](https://github.com/MrWeezle/AlarmApp/blob/master/src/libs/clientfehler.jpg)
 
 #####Alarmdarstellung
 
-
+![Alarmdarstellung](https://github.com/MrWeezle/AlarmApp/blob/master/src/libs/alarmmeldung.jpg)
 
 #####Server sendet Nachricht
 
-
+![Alarmablauf](https://github.com/MrWeezle/AlarmApp/blob/master/src/libs/alarmablauf.jpg)
 
 #####Server hat einen Fehler
 
-
+![Serverfehler](https://github.com/MrWeezle/AlarmApp/blob/master/src/libs/serverfehler.jpg)
 
 
 ##Einrichtung firEmergency

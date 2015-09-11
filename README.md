@@ -21,26 +21,29 @@ welche übergeben werden sollen.
 
 
 #####Screenshots zu Einstellungen
-Alarmablauf:
+######Alarmablauf:
+
 ![Alarmablauf](https://github.com/MrWeezle/AlarmApp/blob/master/src/libs/alarmablauf.jpg)
 
-Alarmtext 1:
+######Alarmtext 1:
+
 Das "#"-Zeichen ist als Trennzeichen zwischen den Parameternamen angegeben. Die Parameternamen sind nur für die bessere
 Lesbarkeit. Auswirkungen auf den Programmablauf haben diese nicht.
 
 ![Alarmtext](https://github.com/MrWeezle/AlarmApp/blob/master/src/libs/alarmtext1.jpg)
 
-Textersetzung:
+######Textersetzung:
+
 Beachte: Leerzeichen müssen mit einem "?" ersetzt werden, da ein Leerzeichen den Beginn eines neuen Parameters anzeigt.
 Die Reihenfolge der Parameter ist an sich unwichtig. Die Reihenfolge bestimmt nur die Darstellung am Client.
 
 ![Textersetzung](https://github.com/MrWeezle/AlarmApp/blob/master/src/libs/textersetzung.jpg)
 
-Alarmtext2:
+######Alarmtext2:
 
 ![Alarmtext2](https://github.com/MrWeezle/AlarmApp/blob/master/src/libs/alarmtext2.jpg)
 
-Programm ausführen:
+######Programm ausführen:
 
 ![Programm ausführen](https://github.com/MrWeezle/AlarmApp/blob/master/src/libs/programmausf%C3%BChren.jpg)
 

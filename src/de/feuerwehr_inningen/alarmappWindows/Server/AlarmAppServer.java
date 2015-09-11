@@ -1,12 +1,18 @@
 package de.feuerwehr_inningen.alarmappWindows.Server;
 
 import de.feuerwehr_inningen.alarmappWindows.Client.*;
-
 import java.io.*;
 import java.net.*;
 import java.util.Properties;
-
 import com.alee.managers.notification.NotificationIcon;
+
+/**
+ * 
+ * Diese Klasse ist für die Ausführung auf dem Alarmierungsserver gedacht. Diese Klasse empfängt die übergebenen Parameter und leitet diese an den Client weiter
+ *  
+ * 
+ **/
+
  
 public class AlarmAppServer {
 	
@@ -14,23 +20,22 @@ public class AlarmAppServer {
 	
     public static void main(String[] args) throws IOException {
          
-//        if (args.length != 2) {
-//            System.err.println(
-//                "Usage: java EchoClient <host name> <port number>");
-//            System.exit(1);
-//        }
+    	//Diese try-Block wird vor Release einkommentiert. Dies dient in der Entwicklungsumgebung zum Testen des Clients und Servers
+    	//Die Test-Variablen können im verwendet werden, wenn als erster Übergabeparameter "debug" übergeben wird.
+    	
 //    	try {
 //    		if (args[0].equals("debug")) {
-    			args = new String [3];    	
+    			args = new String [4];    	
     	    	args[0] = "-stichw#Brand?B3";
-    	    	args[1] = "-adresse#Oktavianstraße?29a,?Inningen?Augsburg";
-    	    	args[2] = "-datum#10.09.2015?13:09:15";
-//    	    	args[3] = "-zeit#13:09:15";
+    	    	args[1] = "-strasse#Oktavianstraße?29a";
+    	    	args[2] = "-ort#Inningen?Augsburg";
+    	    	args[3] = "-datum#10.09.2015?13:09:15";
 //    		}
 //    	} catch (ArrayIndexOutOfBoundsException e) {
 //    		    		
 //    	}
     	
+    	//Lade Properties-Datei aus Work-Verzeichnis
     	FileInputStream is = null;
 		try {
 			is = new FileInputStream(System.getProperty("user.dir") + "/ServerClient.properties");
@@ -44,48 +49,61 @@ public class AlarmAppServer {
 				e1.printStackTrace();
 			}
 			System.exit(1);
-		} 
+		}     	
     	
-    	
+		//Setzte Empfänger und Port mit Werten aus den Properties
         String hostName = ServerClientProp.getProperty("receiverName");
         int portNumber = Integer.parseInt(ServerClientProp.getProperty("receiverPort"));
  
-        try (
+        
+        try {
+        	//Öffne Verbindung zu Client
             Socket kkSocket = new Socket(hostName, portNumber);
             PrintWriter out = new PrintWriter(kkSocket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(
-                new InputStreamReader(kkSocket.getInputStream()));
-        ) {
-        	
+            
+        	//Hole den Alarmtext aus den Übergabeparametern und formatiere ihn
         	String alarmtext = "";
             for (int i=0;i<args.length;i++) {
             	String param = args[i];
+            	
+            	//Ersetzte ? durch Leerzeichen
             	param = param.replace("?", " ");
+            	
+            	//Teile String nach Parametername
             	String param2[] = param.split("#");
+            	
+            	//Speichere zweiten Teilstring ab
             	alarmtext = alarmtext + param2[1]+"\n";
             }
             
-            System.out.println("Client: "+alarmtext);
-            System.out.println("Sending Alarmtext...");
+//            System.out.println("Sending Alarmtext...");
+            
+            //Zeige Popup an, dass Nachricht an Client gesendet wird
             new AlarmHandler("<html><body>Sende Alarmtext an Client '" + hostName+"'</body></html>", false, 5, NotificationIcon.information);
- 
+            
+            //Schicke Nachricht an Client
             out.println(alarmtext);
-
+            
+            //Schließe die Verbindung
+            kkSocket.close();
+            
+        //FEHLERBEHANDLUNG
         } catch (UnknownHostException e) {
-        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br>Host nicht gefunden. Hostname: " + hostName+"<br>Programm wird beendet</body></html>", false, 5, NotificationIcon.error);
+        	
+        	//Clientadresse ungültig
+        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br>Host nicht gefunden. Hostname: " + hostName+"<br><br>Programm wird beendet</body></html>", false, 5, NotificationIcon.error);
             try {
 				Thread.sleep(6000);
 			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-            System.exit(1);
         } catch (IOException e) {
-        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br>Konnte keine Verbindung zu '" + hostName+"' aufbauen.<br>Ist der Client gestartet?<br>Programm wird beendet</body></html>", false, 5, NotificationIcon.error);
+        	
+        	//Verbindung nicht möglich
+        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br>Konnte keine Verbindung zu '" + hostName+"' aufbauen.<br>Ist der Client gestartet oder eine Firewall aktiv?<br><br>Programm wird beendet</body></html>", false, 5, NotificationIcon.error);
         	try {
 				Thread.sleep(6000);
 			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
         }

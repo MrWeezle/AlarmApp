@@ -18,20 +18,31 @@ import javafx.scene.media.*;
 
 
 /**
- * Text notifications example.
- *
- * @author Mikle Garin
- */
+ * 
+ * 
+ * Diese Klasse behandelt alle Popups, die vom Server oder vom Client gestartet werden.
+ * 
+ * 
+ * */
 
 public class AlarmHandler extends WebFrame
 {
 	private static final long serialVersionUID = 8025922137450027854L;
 	public static Properties ServerClientProp = new Properties();
 
+	/*Parameter:
+	 * 
+	 * alarmtext: 	Text, der in dem Popup angezeigt werden soll. HTML-kompatibel
+	 * alarm:		Ist das Popup ein Alarm oder nur ein(e) Information bzw. Fehler. Nur bei einem Alarm wird ein Ton abgespielt
+	 * displaytime:	Wie lange soll das Popup angezeigt werden (in Sekunden)
+	 * icon:		Welches Icon soll das Popup darstellen
+	 * 
+	 */
 	public AlarmHandler(String alarmtext, boolean alarm, int displaytime, NotificationIcon icon) {
 
 		super();
 		
+		//Lade Properties-Datei aus Work-Verzeichnis
 		FileInputStream is = null;
 		try {
 			is = new FileInputStream(System.getProperty("user.dir")+ "/ServerClient.properties");
@@ -42,24 +53,35 @@ public class AlarmHandler extends WebFrame
 			try {
 				Thread.sleep(6000);
 			} catch (InterruptedException e1) {
-				e1.printStackTrace();
 			}
 			System.exit(1);
 		}
 		
         // Install WebLaF as application L&F
-        WebLookAndFeel.install ();        
+        WebLookAndFeel.install ();
+        
+        //Initialisiere JavaFX
         new JFXPanel();
-               
+        
+        //Erstelle ein neues Notification-Objekt
         final WebNotification notificationPopup = new WebNotification ();
+        
+        //Icon aus Parameter
         notificationPopup.setIcon ( icon );
+        
+        //Dauer aus Parameter * 1000. Ergibt Millisekunden
         notificationPopup.setDisplayTime (displaytime*1000);
+        
+        //Setzte Labeltext auf Alarmtext
         notificationPopup.setContent ( new WebLabel( alarmtext ) );
         
+        //Zeige Popup an
         NotificationManager.showNotification ( notificationPopup );
         
+        //Ist das Popup ein Alarm?
 	    if (alarm) {
 	    	try {
+	    		//Wenn ja, wird ein Ton abgespielt
 	        	System.out.println("Getting Alarmmedia...");        
 			    Media med = new Media(new File(ServerClientProp.getProperty("alarmTone")).toURI().toString());
 			    MediaPlayer player = new MediaPlayer(med);
@@ -67,7 +89,9 @@ public class AlarmHandler extends WebFrame
 			    player.setCycleCount(Integer.parseInt(ServerClientProp.getProperty("alarmCycle")));
 			    player.play();
 			    System.out.println("Alarm displayed. Waiting for new Alarm...");
+			//FEHLERBEHANDLUNG
 	    	} catch (MediaException e) {
+	    		//Audio-Datei fehlt
 	    		if (e.getType().equals("MEDIA_UNAVAILABLE")) {
 	    			new AlarmHandler("<html><body><font size=5>FEHLER</font><br>Media-Datei wurde nicht gefunden.<br>Bitte überprüfen!</body></html>", false, 5, NotificationIcon.error);
 	    		}

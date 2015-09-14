@@ -20,7 +20,7 @@ import com.alee.managers.notification.NotificationIcon;
 /**
  * 
  * 
- * Diese Klasse ist für die Ausführung auf dem Client gedacht. Diese Klasse empfängt die Alarmierung vom Server, zeigt ein popup an und spielt einen Alarmton ab.
+ * Diese Klasse ist für die Ausführung auf dem Client gedacht. Diese Klasse empfängt die Alarmierung vom Server, zeigt ein Popup an und spielt einen Alarmton ab.
  * 
  * 
  **/
@@ -28,6 +28,7 @@ import com.alee.managers.notification.NotificationIcon;
 
 public class AlarmAppClient extends Thread{
 	private String arr;
+	
 	//Fallback
 	private static int notifDuration = 30, portNumber = 11114;
 	public static Properties ServerClientProp = new Properties();
@@ -80,8 +81,7 @@ public class AlarmAppClient extends Thread{
 			} catch (Exception e1) {
 			}
             System.exit(1);
-        }
-		
+        }		
  
         try {
         	
@@ -100,7 +100,7 @@ public class AlarmAppClient extends Thread{
             
             final SystemTray tray = SystemTray.getSystemTray();
             
-         // Create a pop-up menu components
+            // Erstelle Popup Menü-Items
             MenuItem aboutItem = new MenuItem("Info");
             aboutItem.addActionListener(new ActionListener() {
                 @Override

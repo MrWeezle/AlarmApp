@@ -6,12 +6,12 @@ import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
-import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import com.alee.managers.notification.NotificationIcon;
@@ -35,7 +35,7 @@ public class AlarmAppClient extends Thread{
 	static ServerSocket serverSocket;
 	
 	public static String sProgammName = "AlarmApp";
-	public static String sVersion = "0.1b";
+	public static String sVersion = "0.3b";
 	
     public AlarmAppClient(String alarmtext) {
     	this.arr = alarmtext;
@@ -57,7 +57,7 @@ public class AlarmAppClient extends Thread{
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			} catch (Exception e1) {
-	        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getStackTrace()+"</body></html>", false, 10, NotificationIcon.error);
+	        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error);
 	        	try {
 					Thread.sleep(10000);
 				} catch (Exception e2) {
@@ -75,7 +75,7 @@ public class AlarmAppClient extends Thread{
 		} catch (NullPointerException e) {
 			new AlarmHandler("<html><body><font size=5>WARNUNG</font><br><br><b>Properties-Fehler</b><br>Portnummer oder Benachrichtigungsdauer Parameter ist nicht vorhanden!<br>Defaultwerte werden verwendet.<br><i>Port: 11114<br>Dauer: 30 Sekunden</i><br></body></html>", false, 10, NotificationIcon.error);
 		} catch (Exception e) {
-        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getStackTrace()+"</body></html>", false, 10, NotificationIcon.error);
+        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error);
         	try {
 				Thread.sleep(10000);
 			} catch (Exception e1) {
@@ -92,7 +92,7 @@ public class AlarmAppClient extends Thread{
             final PopupMenu popup = new PopupMenu();
             
             //Erstelle Tray Icon
-            Image im = Toolkit.getDefaultToolkit().getImage("src/libs/trayicon.png");
+            Image im = new ImageIcon(AlarmAppClient.class.getResource("/libs/trayicon.png")).getImage();
             
             //Skaliere das Icon auf die richtige Größe            
             int width = new TrayIcon(im).getSize().width;
@@ -126,7 +126,8 @@ public class AlarmAppClient extends Thread{
             try {
                 tray.add(trayIcon);
             } catch (Exception e) {
-            	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getStackTrace()+"</body></html>", false, 10, NotificationIcon.error);
+            	e.printStackTrace();
+            	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error);
             	try {
     				Thread.sleep(10000);
     			} catch (Exception e1) {
@@ -191,7 +192,7 @@ public class AlarmAppClient extends Thread{
                 System.exit(1);
             }  		
         } catch (Exception e) {
-        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getStackTrace()+"</body></html>", false, 10, NotificationIcon.error);
+        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error);
         	try {
 				Thread.sleep(10000);
 			} catch (Exception e1) {

@@ -52,7 +52,7 @@ public class AlarmAppServer {
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			} catch (Exception e1) {
-	        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getStackTrace()+"</body></html>", false, 10, NotificationIcon.error);
+	        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error);
 	        	try {
 					Thread.sleep(10000);
 				} catch (InterruptedException e2) {
@@ -70,7 +70,7 @@ public class AlarmAppServer {
 		} catch (NullPointerException e) {
 			new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br><b>Properties-Fehler</b><br>Portnummer oder Hostname Parameter ist nicht vorhanden!<br>Programm wird beendet.</body></html>", false, 5, NotificationIcon.error);
 		} catch (Exception e) {
-        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getStackTrace()+"</body></html>", false, 10, NotificationIcon.error);
+        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error);
         	try {
 				Thread.sleep(10000);
 			} catch (InterruptedException e1) {
@@ -118,7 +118,7 @@ public class AlarmAppServer {
             try {
 				Thread.sleep(6000);
 			} catch (Exception e1) {
-				new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getStackTrace()+"</body></html>", false, 10, NotificationIcon.error);
+				new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error);
 				try {
 					Thread.sleep(10000);
 				} catch (Exception e2) {
@@ -132,7 +132,7 @@ public class AlarmAppServer {
         	try {
 				Thread.sleep(6000);
 			} catch (Exception e1) {
-	        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getStackTrace()+"</body></html>", false, 10, NotificationIcon.error);	
+	        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error);	
 	        	try {
 					Thread.sleep(10000);
 				} catch (Exception e2) {
@@ -141,7 +141,7 @@ public class AlarmAppServer {
 			}
         	System.exit(1);
         }  catch (Exception e) {
-        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getStackTrace()+"</body></html>", false, 10, NotificationIcon.error);
+        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error);
         	try {
 				Thread.sleep(10000);
 			} catch (Exception e2) {

@@ -56,7 +56,7 @@ public class AlarmHandler extends WebFrame
 			}
 			System.exit(1);
 		} catch (Exception e) {
-        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getStackTrace()+"</body></html>", false, 10, NotificationIcon.error);
+        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error);
         	try {
 				Thread.sleep(10000);
 			} catch (Exception e1) {
@@ -109,7 +109,7 @@ public class AlarmHandler extends WebFrame
 	    			new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br><b>Media-Fehler</b><br>Media-Datei wurde nicht gefunden.<br>Bitte überprüfen!</body></html>", false, 5, NotificationIcon.error);
 //	    		}
 	    	} catch (Exception e) {
-	        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getStackTrace()+"</body></html>", false, 10, NotificationIcon.error);
+	        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error);
 	        	try {
 					Thread.sleep(10000);
 				} catch (Exception e1) {

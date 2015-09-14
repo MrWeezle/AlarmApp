@@ -49,13 +49,20 @@ public class AlarmHandler extends WebFrame
 			ServerClientProp.load(is);
 			is.close();
 		} catch (IOException e) {
-			new AlarmHandler("<html><body><font size=5>FEHLER</font><br>Properties-Datei hat einen Fehler oder ist nicht vorhanden!<br>Programm wird beendet</body></html>", false, 5, NotificationIcon.error);
+			new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br><b>Properties-Fehler</b><br>Datei hat einen Fehler order ist nicht vorhanden!<br>Programm wird beendet.</body></html>", false, 5, NotificationIcon.error);
 			try {
 				Thread.sleep(6000);
-			} catch (InterruptedException e1) {
+			} catch (Exception e1) {
 			}
 			System.exit(1);
-		}
+		} catch (Exception e) {
+        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getStackTrace()+"</body></html>", false, 10, NotificationIcon.error);
+        	try {
+				Thread.sleep(10000);
+			} catch (Exception e1) {
+			}
+            System.exit(1);
+        }
 		
         // Install WebLaF as application L&F
         WebLookAndFeel.install ();
@@ -99,9 +106,16 @@ public class AlarmHandler extends WebFrame
 	    	} catch (MediaException e) {
 	    		//Audio-Datei fehlt
 //	    		if (e.getType().equals("MEDIA_UNAVAILABLE")) {
-	    			new AlarmHandler("<html><body><font size=5>FEHLER</font><br>Media-Datei wurde nicht gefunden.<br>Bitte überprüfen!</body></html>", false, 5, NotificationIcon.error);
+	    			new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br><b>Media-Fehler</b><br>Media-Datei wurde nicht gefunden.<br>Bitte überprüfen!</body></html>", false, 5, NotificationIcon.error);
 //	    		}
-	    	}
+	    	} catch (Exception e) {
+	        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getStackTrace()+"</body></html>", false, 10, NotificationIcon.error);
+	        	try {
+					Thread.sleep(10000);
+				} catch (Exception e1) {
+				}
+	            System.exit(1);
+	        }
         }
 	}
 }

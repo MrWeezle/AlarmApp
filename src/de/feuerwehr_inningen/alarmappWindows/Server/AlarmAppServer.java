@@ -1,9 +1,11 @@
 package de.feuerwehr_inningen.alarmappWindows.Server;
 
 import de.feuerwehr_inningen.alarmappWindows.Client.AlarmHandler;
+
 import java.io.*;
 import java.net.*;
 import java.util.Properties;
+
 import com.alee.managers.notification.NotificationIcon;
 
 /**
@@ -17,6 +19,8 @@ import com.alee.managers.notification.NotificationIcon;
 public class AlarmAppServer {
 	
 	public static Properties ServerClientProp = new Properties();
+	private static int portNumber = 11114;
+	public static String hostName = "";
 	
     public static void main(String[] args) throws IOException {
          
@@ -42,18 +46,37 @@ public class AlarmAppServer {
 			ServerClientProp.load(is);
 			is.close();
 		} catch (IOException e) {
-			new AlarmHandler("<html><body><font size=5>FEHLER</font><br>Properties-Datei hat einen Fehler order ist nicht vorhanden!<br>Programm wird beendet</body></html>", false, 5, NotificationIcon.error);
+			new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br><b>Properties-Fehler</b><br>Datei hat einen Fehler order ist nicht vorhanden!<br>Programm wird beendet.</body></html>", false, 5, NotificationIcon.error);
 			try {
 				Thread.sleep(10000);
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
-			}
+			} catch (Exception e1) {
+	        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getStackTrace()+"</body></html>", false, 10, NotificationIcon.error);
+	        	try {
+					Thread.sleep(10000);
+				} catch (InterruptedException e2) {
+				}
+	        }
 			System.exit(1);
 		}     	
     	
 		//Setzte Empfänger und Port mit Werten aus den Properties
-        String hostName = ServerClientProp.getProperty("receiverName");
-        int portNumber = Integer.parseInt(ServerClientProp.getProperty("receiverPort"));
+        try {
+        	hostName = ServerClientProp.getProperty("receiverName");
+        	portNumber = Integer.parseInt(ServerClientProp.getProperty("receiverPort"));
+        } catch (NumberFormatException e) {
+			new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br><b>Properties-Fehler</b><br>Portnummer ist keine Zahl!<br>defaultwerte werden verwendet.<br>Port: 11114<br>Dauer: 30 Sekunden<br><br>Programm wird beendet.</body></html>", false, 5, NotificationIcon.error);
+		} catch (NullPointerException e) {
+			new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br><b>Properties-Fehler</b><br>Portnummer oder Hostname Parameter ist nicht vorhanden!<br>Programm wird beendet.</body></html>", false, 5, NotificationIcon.error);
+		} catch (Exception e) {
+        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getStackTrace()+"</body></html>", false, 10, NotificationIcon.error);
+        	try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e1) {
+			}
+            System.exit(1);
+        }
  
         
         try {
@@ -91,22 +114,39 @@ public class AlarmAppServer {
         } catch (UnknownHostException e) {
         	
         	//Clientadresse ungültig
-        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br>Host nicht gefunden. Hostname: " + hostName+"<br><br>Programm wird beendet</body></html>", false, 5, NotificationIcon.error);
+        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br><b>Netzwerkfehler</b><br>Host nicht gefunden. Hostname: " + hostName+"<br><br>Programm wird beendet</body></html>", false, 5, NotificationIcon.error);
             try {
 				Thread.sleep(6000);
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
+			} catch (Exception e1) {
+				new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getStackTrace()+"</body></html>", false, 10, NotificationIcon.error);
+				try {
+					Thread.sleep(10000);
+				} catch (Exception e2) {
+				}
+	        	System.exit(1);
+			} 
         } catch (IOException e) {
         	
         	//Verbindung nicht möglich
-        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br>Konnte keine Verbindung zu '" + hostName+"' aufbauen.<br>Ist der Client gestartet oder eine Firewall aktiv?<br><br>Programm wird beendet</body></html>", false, 5, NotificationIcon.error);
+        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br><b>Netzwerkfehler</b><br>Konnte keine Verbindung zu '" + hostName+"' aufbauen.<br>Ist der Client gestartet oder eine Firewall aktiv?<br><br>Programm wird beendet</body></html>", false, 5, NotificationIcon.error);
         	try {
 				Thread.sleep(6000);
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
+			} catch (Exception e1) {
+	        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getStackTrace()+"</body></html>", false, 10, NotificationIcon.error);	
+	        	try {
+					Thread.sleep(10000);
+				} catch (Exception e2) {
+				}
+	        	System.exit(1);
 			}
+        	System.exit(1);
+        }  catch (Exception e) {
+        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getStackTrace()+"</body></html>", false, 10, NotificationIcon.error);
+        	try {
+				Thread.sleep(10000);
+			} catch (Exception e2) {
+			}
+        	System.exit(1);
         }
-        System.exit(1);
     }
 }

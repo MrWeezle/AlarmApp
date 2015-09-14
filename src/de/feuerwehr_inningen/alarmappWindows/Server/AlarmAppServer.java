@@ -27,17 +27,17 @@ public class AlarmAppServer {
     	//Diese try-Block wird vor Release einkommentiert. Dies dient in der Entwicklungsumgebung zum Testen des Clients und Servers
     	//Die Test-Variablen können im verwendet werden, wenn als erster Übergabeparameter "debug" übergeben wird.
     	
-//    	try {
-//    		if (args[0].equals("debug")) {
+    	try {
+    		if (args[0].equals("debug")) {
     			args = new String [4];    	
     	    	args[0] = "-stichw#Brand?B3";
     	    	args[1] = "-strasse#Oktavianstraße?29a";
     	    	args[2] = "-ort#Inningen?Augsburg";
     	    	args[3] = "-datum#10.09.2015?13:09:15";
-//    		}
-//    	} catch (ArrayIndexOutOfBoundsException e) {
-//    		    		
-//    	}
+    		}
+    	} catch (ArrayIndexOutOfBoundsException e) {
+    		    		
+    	}
     	
     	//Lade Properties-Datei aus Work-Verzeichnis
     	FileInputStream is = null;

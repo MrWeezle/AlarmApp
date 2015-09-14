@@ -35,7 +35,7 @@ public class AlarmAppClient extends Thread{
 	static ServerSocket serverSocket;
 	
 	public static String sProgammName = "AlarmApp";
-	public static String sVersion = "0.3b";
+	public static String sVersion = "1.0";
 	
     public AlarmAppClient(String alarmtext) {
     	this.arr = alarmtext;

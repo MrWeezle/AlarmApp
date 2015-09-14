@@ -2,7 +2,17 @@ package de.feuerwehr_inningen.alarmappWindows.Client;
 
 import java.net.*;
 import java.util.Properties;
+import java.awt.Image;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.Toolkit;
+import java.awt.TrayIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
+
+import javax.swing.JOptionPane;
 
 import com.alee.managers.notification.NotificationIcon;
 
@@ -21,6 +31,9 @@ public class AlarmAppClient extends Thread{
 	private static int notifDuration = 30;
 	public static Properties ServerClientProp = new Properties();
 	static ServerSocket serverSocket;
+	
+	public static String sProgammName = "AlarmApp";
+	public static String sVersion = "0.1b";
 	
     public AlarmAppClient(String alarmtext) {
     	this.arr = alarmtext;
@@ -53,6 +66,47 @@ public class AlarmAppClient extends Thread{
         	
         	//Öffne Port
             serverSocket = new ServerSocket(portNumber);
+            
+            //Erstelle Popup Menü für Systemtray
+            final PopupMenu popup = new PopupMenu();
+            
+            //Erstelle Tray Icon
+            Image im = Toolkit.getDefaultToolkit().getImage("src/libs/trayicon.png");
+            
+            //Skaliere das Icon auf die richtige Größe            
+            int width = new TrayIcon(im).getSize().width;
+            final TrayIcon trayIcon = new TrayIcon(im.getScaledInstance(width, -1, Image.SCALE_SMOOTH),sProgammName+" Client v"+sVersion);
+            
+            final SystemTray tray = SystemTray.getSystemTray();
+            
+         // Create a pop-up menu components
+            MenuItem aboutItem = new MenuItem("About");
+            aboutItem.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JOptionPane.showMessageDialog(null, "<html><body><font size=5><b>"+sProgammName+" v"+sVersion+"</b></font><br><br>Client-Tool des Programms \""+sProgammName+"\" der Feuerwehr Inningen<br><br><font size=2>\u00a9 2015 Feuerwehr Inningen e. V.</font></body></html>", "Info", JOptionPane.INFORMATION_MESSAGE);         
+                }
+            });
+            MenuItem exitItem = new MenuItem("Exit");            
+            exitItem.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.exit(0);             
+                }
+            });
+            
+            //Add components to pop-up menu
+            popup.add(aboutItem);
+            popup.addSeparator();
+            popup.add(exitItem);
+           
+            trayIcon.setPopupMenu(popup);
+           
+            try {
+                tray.add(trayIcon);
+            } catch (Exception e) {
+                System.out.println("TrayIcon could not be added.");
+            }
             
             //Durchlaufe diese Schleife solange, bis der Port nicht mehr definiert ist. Benötigt für durchgehenden Alarmierungsempfang
         	while(serverSocket != null) {

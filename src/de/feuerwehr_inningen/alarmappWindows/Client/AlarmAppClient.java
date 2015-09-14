@@ -80,7 +80,7 @@ public class AlarmAppClient extends Thread{
             final SystemTray tray = SystemTray.getSystemTray();
             
          // Create a pop-up menu components
-            MenuItem aboutItem = new MenuItem("About");
+            MenuItem aboutItem = new MenuItem("Info");
             aboutItem.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {

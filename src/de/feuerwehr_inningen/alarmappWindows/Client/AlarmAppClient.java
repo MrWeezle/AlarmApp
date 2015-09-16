@@ -35,7 +35,7 @@ public class AlarmAppClient extends Thread{
 	static ServerSocket serverSocket;
 	
 	public static String sProgammName = "AlarmApp";
-	public static String sVersion = "1.0";
+	public static String sVersion = "1.1";
 	
     public AlarmAppClient(String alarmtext) {
     	this.arr = alarmtext;
@@ -51,13 +51,13 @@ public class AlarmAppClient extends Thread{
 			ServerClientProp.load(is);
 			is.close();
 		} catch (IOException e) {
-			new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br><b>Properties-Fehler</b><br>Datei hat einen Fehler order ist nicht vorhanden!<br>Programm wird beendet.</body></html>", false, 5, NotificationIcon.error);
+			new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br><b>Properties-Fehler</b><br>Datei hat einen Fehler order ist nicht vorhanden!<br>Programm wird beendet.</body></html>", false, 5, NotificationIcon.error,null);
 			try {
 				Thread.sleep(10000);
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			} catch (Exception e1) {
-	        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error);
+	        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error,ServerClientProp);
 	        	try {
 					Thread.sleep(10000);
 				} catch (Exception e2) {
@@ -68,14 +68,14 @@ public class AlarmAppClient extends Thread{
 		
 		//Setzte Port und Benachrichtigungsdauer mit Werten aus den Properties
 		try {
-			portNumber = Integer.parseInt(ServerClientProp.getProperty("receiverPort"));
-			notifDuration = Integer.parseInt(ServerClientProp.getProperty("notification"));
+			portNumber = Integer.parseInt(ServerClientProp.getProperty("receiverPort","11114"));
+			notifDuration = Integer.parseInt(ServerClientProp.getProperty("notification","30"));
 		} catch (NumberFormatException e) {
-			new AlarmHandler("<html><body><font size=5>WARNUNG</font><br><br><b>Properties-Fehler</b><br>Portnummer oder Benachrichtigungsdauer ist keine Zahl! <br>Defaultwerte werden verwendet.<br><i>Port: 11114<br>Dauer: 30 Sekunden</i><br></body></html>", false, 10, NotificationIcon.warning);
+			new AlarmHandler("<html><body><font size=5>WARNUNG</font><br><br><b>Properties-Fehler</b><br>Portnummer oder Benachrichtigungsdauer ist keine Zahl! <br>Defaultwerte werden verwendet.<br><i>Port: 11114<br>Dauer: 30 Sekunden</i><br></body></html>", false, 10, NotificationIcon.warning,null);
 		} catch (NullPointerException e) {
-			new AlarmHandler("<html><body><font size=5>WARNUNG</font><br><br><b>Properties-Fehler</b><br>Portnummer oder Benachrichtigungsdauer Parameter ist nicht vorhanden!<br>Defaultwerte werden verwendet.<br><i>Port: 11114<br>Dauer: 30 Sekunden</i><br></body></html>", false, 10, NotificationIcon.error);
+			new AlarmHandler("<html><body><font size=5>WARNUNG</font><br><br><b>Properties-Fehler</b><br>Portnummer oder Benachrichtigungsdauer Parameter ist nicht vorhanden!<br>Defaultwerte werden verwendet.<br><i>Port: 11114<br>Dauer: 30 Sekunden</i><br></body></html>", false, 10, NotificationIcon.error,null);
 		} catch (Exception e) {
-        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error);
+        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error,null);
         	try {
 				Thread.sleep(10000);
 			} catch (Exception e1) {
@@ -127,7 +127,7 @@ public class AlarmAppClient extends Thread{
                 tray.add(trayIcon);
             } catch (Exception e) {
             	e.printStackTrace();
-            	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error);
+            	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error,null);
             	try {
     				Thread.sleep(10000);
     			} catch (Exception e1) {
@@ -139,13 +139,13 @@ public class AlarmAppClient extends Thread{
         	while(serverSocket != null) {
         		
         		//Popup, wenn Client bereit ist, Alarmierungen zu empfangen
-        		new AlarmHandler("<html><body>Client bereit zum Empfangen</body></html>", false, 3, NotificationIcon.information);
+        		new AlarmHandler("<html><body>Client bereit zum Empfangen</body></html>", false, 3, NotificationIcon.information,null);
         		
         		//Warte auf Verbindung vom Server
         		Socket clientSocket = serverSocket.accept();
 
         		//Melde, wenn sich der Server verbunden hat
-        		new AlarmHandler("<html><body>Empfange Alarmmeldung von Server...</body></html>", false, 2, NotificationIcon.information);
+        		new AlarmHandler("<html><body>Empfange Alarmmeldung von Server...</body></html>", false, 2, NotificationIcon.information,null);
         		
                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 
@@ -178,13 +178,13 @@ public class AlarmAppClient extends Thread{
             
         	//Verbindung unterbrochen
             if (e.getClass().toString().equals("class java.net.SocketException")) {
-            	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br><b>Netzwerkfehler</b><br>Verbindung wurde vom Server unterbrochen.</body></html>", false, 10, NotificationIcon.error);
+            	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br><b>Netzwerkfehler</b><br>Verbindung wurde vom Server unterbrochen.</body></html>", false, 10, NotificationIcon.error,null);
             	serverSocket.close();
             	main(null);
             }
             //Port in Verwendung
             else {
-            	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br><b>Netzwerkfehler</b><br>Konnte Port "+portNumber+" nicht verwenden! Port ist bereits <br>in Benutzung. Programm bitte neu starten oder andere<br>Port-Nummer für Server und Client definieren!</body></html>", false, 10, NotificationIcon.error);
+            	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br><b>Netzwerkfehler</b><br>Konnte Port "+portNumber+" nicht verwenden! Port ist bereits <br>in Benutzung. Programm bitte neu starten oder andere<br>Port-Nummer für Server und Client definieren!</body></html>", false, 10, NotificationIcon.error,null);
             	try {
     				Thread.sleep(10000);
     			} catch (Exception e1) {
@@ -192,7 +192,7 @@ public class AlarmAppClient extends Thread{
                 System.exit(1);
             }  		
         } catch (Exception e) {
-        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error);
+        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error,null);
         	try {
 				Thread.sleep(10000);
 			} catch (Exception e1) {
@@ -202,6 +202,6 @@ public class AlarmAppClient extends Thread{
     }
 	//Thread-Start für Alarmdarstellung
 	public void run() {
-    	new AlarmHandler(arr, true, notifDuration, NotificationIcon.warning);
+    	new AlarmHandler(arr, true, notifDuration, NotificationIcon.warning,ServerClientProp);
     }
 }

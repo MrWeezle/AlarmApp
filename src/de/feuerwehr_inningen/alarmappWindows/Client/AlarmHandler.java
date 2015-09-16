@@ -2,8 +2,6 @@ package de.feuerwehr_inningen.alarmappWindows.Client;
 
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Properties;
 
 import com.alee.laf.WebLookAndFeel;
@@ -28,7 +26,7 @@ import javafx.scene.media.*;
 public class AlarmHandler extends WebFrame
 {
 	private static final long serialVersionUID = 8025922137450027854L;
-	public static Properties ServerClientProp = new Properties();
+	private Properties ServerClientProp;
 
 	/*Parameter:
 	 * 
@@ -38,31 +36,9 @@ public class AlarmHandler extends WebFrame
 	 * icon:		Welches Icon soll das Popup darstellen
 	 * 
 	 */
-	public AlarmHandler(String alarmtext, boolean alarm, int displaytime, NotificationIcon icon) {
-
+	public AlarmHandler(String alarmtext, boolean alarm, int displaytime, NotificationIcon icon, Properties prop) {
 		super();
-		
-		//Lade Properties-Datei aus Work-Verzeichnis
-		FileInputStream is = null;
-		try {
-			is = new FileInputStream(System.getProperty("user.dir")+ "/ServerClient.properties");
-			ServerClientProp.load(is);
-			is.close();
-		} catch (IOException e) {
-			new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br><b>Properties-Fehler</b><br>Datei hat einen Fehler order ist nicht vorhanden!<br>Programm wird beendet.</body></html>", false, 5, NotificationIcon.error);
-			try {
-				Thread.sleep(6000);
-			} catch (Exception e1) {
-			}
-			System.exit(1);
-		} catch (Exception e) {
-        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error);
-        	try {
-				Thread.sleep(10000);
-			} catch (Exception e1) {
-			}
-            System.exit(1);
-        }
+		this.ServerClientProp = prop;		
 		
         // Install WebLaF as application L&F
         WebLookAndFeel.install ();
@@ -90,7 +66,7 @@ public class AlarmHandler extends WebFrame
 	    	try {
 	    		//Wenn ja, wird ein Ton abgespielt
 	        	System.out.println("Getting Alarmmedia...");
-	        	File f = new File(ServerClientProp.getProperty("alarmTone"));
+	        	File f = new File(ServerClientProp.getProperty("alarmTone","hurricane.m4a"));
 	        	System.out.println(f);
 	        	String uri = f.toURI().toString();
 	        	System.out.println(uri);
@@ -99,17 +75,17 @@ public class AlarmHandler extends WebFrame
 	        	Media med = new Media(uri);
 			    MediaPlayer player = new MediaPlayer(med);
 			    System.out.println("Playing Alarmmedia...");
-			    player.setCycleCount(Integer.parseInt(ServerClientProp.getProperty("alarmCycle")));
+			    player.setCycleCount(Integer.parseInt(ServerClientProp.getProperty("alarmCycle","2")));
 			    player.play();
 			    System.out.println("Alarm displayed. Waiting for new Alarm...");
 			//FEHLERBEHANDLUNG
 	    	} catch (MediaException e) {
 	    		//Audio-Datei fehlt
 //	    		if (e.getType().equals("MEDIA_UNAVAILABLE")) {
-	    			new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br><b>Media-Fehler</b><br>Media-Datei wurde nicht gefunden.<br>Bitte überprüfen!</body></html>", false, 5, NotificationIcon.error);
+	    			new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br><b>Media-Fehler</b><br>Media-Datei wurde nicht gefunden.<br>Bitte überprüfen!</body></html>", false, 5, NotificationIcon.error,null);
 //	    		}
 	    	} catch (Exception e) {
-	        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error);
+	        	new AlarmHandler("<html><body><font size=5>FEHLER</font><br><br>"+e.getMessage()+"</body></html>", false, 10, NotificationIcon.error,null);
 	        	try {
 					Thread.sleep(10000);
 				} catch (Exception e1) {
